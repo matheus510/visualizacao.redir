@@ -9,7 +9,8 @@ var fs = require('fs');
 
 // Define the request router
 var router = {
-  'redir': handlers.redir
+  'redir': handlers.redir,
+  'visualizacao': handlers.visualizacao
 };
 
 var httpsServerOptions = {
