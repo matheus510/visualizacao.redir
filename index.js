@@ -16,14 +16,6 @@ var httpsServerOptions = {
   'key': fs.readFileSync('./https/key.pem'),
   'cert': fs.readFileSync('./https/cert.pem')
 };
-var httpServer = http.createServer(function(req,res){
-  internalServer(req, res);
-});
-
-var httpsServer = https.createServer(httpsServerOptions,function(req,res){
-  internalServer(req,res);
-});
-
 var internalServer = function(req, res){
 
   // parse received url
@@ -63,6 +55,14 @@ var internalServer = function(req, res){
     chosenHandler(data, res);
   });
 }
+
+var httpServer = http.createServer(function(req,res){
+  internalServer(req, res);
+});
+
+var httpsServer = https.createServer(httpsServerOptions,function(req,res){
+  internalServer(req,res);
+});
 
   // Start the HTTPS server
   httpServer.listen('5000',function(){
