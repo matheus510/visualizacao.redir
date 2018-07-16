@@ -18,12 +18,12 @@ var httpsServerOptions = {
   'cert': fs.readFileSync('./https/cert.pem')
 };
 var internalServer = function(req, res){
-
   // parse received url
   var parsedUrl = url.parse(req.url,true);
   // obtain path
   var path = parsedUrl.pathname;
   var trimmedPath = path.replace(/^\/+|\/+$/g, '');
+
   // Get the query string as an object
   var queryStringObj = parsedUrl.query;
 
@@ -42,17 +42,17 @@ var internalServer = function(req, res){
   });
   req.on('end', function(){
     buffer += decoder.end();
-
+    console.log('start')
     // contruct the data object to send to the handler
     var data = {
       'trimmedPath' : trimmedPath,
       'queryStringObject' : queryStringObj,
       'method' : method,
       'headers' : headers,
-      'payload' : buffer
+      'payload' : buffer,
+      'path': path
     }
     var chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
-
     chosenHandler(data, res);
   });
 }
@@ -67,7 +67,7 @@ var httpsServer = https.createServer(httpsServerOptions,function(req,res){
 
   // Start the HTTPS server
   httpServer.listen('5000',function(){
-    console.log('\x1b[40m%s\x1b[0m','listening at port: 5000')
+    console.log('\x1b[35m%s\x1b[0m','listening at port: 5000')
   });
 /*   httpsServer.listen('5001',function(){
     console.log('\x1b[42m%s\x1b[0m','listening at port: 5001')
