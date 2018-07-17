@@ -10,7 +10,8 @@ var fs = require('fs');
 // Define the request router
 var router = {
   'redir': handlers.redir,
-  'visualizacao': handlers.visualizacao
+  'visualizacao': handlers.visualizacao,
+  'static': handlers.static
 };
 
 var httpsServerOptions = {
@@ -52,7 +53,9 @@ var internalServer = function(req, res){
       'payload' : buffer,
       'path': path
     }
-    var chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
+    var chosenHandler = trimmedPath.indexOf('static') > -1 ? 
+                        router['static'] : typeof(router[trimmedPath]) !== 'undefined' ?
+                        router[trimmedPath] : handlers.notFound;
     chosenHandler(data, res);
   });
 }
