@@ -1,4 +1,4 @@
-// Index do Redirecionamento do visualição
+// Initial file for PreviewMaker
 var http = require('http');
 var url = require('url');
 var handlers = require('./lib/handlers')
@@ -13,17 +13,18 @@ var router = {
   'static': handlers.static
 };
 ////////////////////////////////////////////
-// QUEBRE O VIDRO DO HTTPS DE EMERGENCIA //
+// BREAK THE GLASS IN CASE OF HTTPS     //
 //       Use em caso de urgencia        //
 /////////////////////////////////////////
-var httpsServerOptions = {
+/* var httpsServerOptions = {
   'key': fs.readFileSync('./https/key.pem'),
   'cert': fs.readFileSync('./https/cert.pem')
-};
+}; */
+
 var internalServer = function(req, res){
-  // parse received url
+  // Parse received url
   var parsedUrl = url.parse(req.url,true);
-  // obtain path
+  // Obtain path
   var path = parsedUrl.pathname;
   var trimmedPath = path.replace(/^\/+|\/+$/g, '');
 
@@ -46,7 +47,7 @@ var internalServer = function(req, res){
   req.on('end', function(){
     buffer += decoder.end();
     console.log('start')
-    // contruct the data object to send to the handler
+    // Construct the data object to send to the handler
     var data = {
       'trimmedPath' : trimmedPath,
       'queryStringObject' : queryStringObj,
