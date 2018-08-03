@@ -81,7 +81,7 @@ const httpServer = http.createServer((req,res) => {
 })
 
 // Start the HTTPS server
-httpServer.listen('5000',() => {
-  console.log('\x1b[35m%s\x1b[0m','listening at port: 5000')
+httpServer.listen('80',() => {
+  console.log('\x1b[35m%s\x1b[0m','listening at port: 80')
   workers.init()
 })
