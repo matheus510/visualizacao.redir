@@ -58,7 +58,6 @@ const internalServer = function (req, res){
 
   req.on('end',() => {
     buffer += decoder.end()
-    console.log('start')
     // Construct the data object to send to the handler
     let data = {
       'trimmedPath': trimmedPath,
