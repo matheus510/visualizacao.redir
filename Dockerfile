@@ -10,4 +10,4 @@ COPY . .
 # Expose correct port
 EXPOSE 80
 
-CMD [ "sudo", "node", "index" ]
+CMD [ "node", "index" ]
